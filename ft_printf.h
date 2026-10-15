@@ -14,7 +14,6 @@
 # define FT_PRINTF_H
 
 # include <stdarg.h>
-# include <stdint.h>
 # include <unistd.h>
 
 int	ft_printf(const char *format, ...);
@@ -22,7 +21,7 @@ int	ft_print_char(int c);
 int	ft_print_string(char *s);
 int	ft_print_unsigned(unsigned int n);
 int	ft_print_signed(int n);
-int	ft_print_hex(uintptr_t n, const char *digits);
+int	ft_print_hex(unsigned long n, const char *digits);
 int	ft_print_pointer(void *pointer);
 
 #endif

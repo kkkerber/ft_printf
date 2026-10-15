@@ -47,7 +47,7 @@ int	ft_print_signed(int n)
 	return (ft_print_unsigned(magnitude));
 }
 
-int	ft_print_hex(uintptr_t n, const char *digits)
+int	ft_print_hex(unsigned long n, const char *digits)
 {
 	int	count;
 

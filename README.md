@@ -58,8 +58,9 @@ a signed integer.
 
 Hexadecimal conversion uses the same quotient/remainder approach with base 16
 and the appropriate lowercase or uppercase digit alphabet. Pointer conversion
-extracts `void *`, converts it to `uintptr_t` to preserve its full value, writes
-`0x`, and reuses the lowercase hexadecimal helper.
+extracts `void *`. The pointer is converted to unsigned long and printed in
+lowercase hexadecimal with the `0x` prefix. A NULL pointer is printed as
+`(nil)` to match the Linux libc behavior used during evaluation.
 
 Each helper returns its character count, or `-1` if a write fails. The parser
 adds successful counts and propagates failures after calling `va_end`. A write
@@ -81,11 +82,9 @@ argument list, and counters are sufficient; no complex data structure is needed.
 
 ## Platform behavior and scope
 
-This implementation targets the tested macOS libc behavior: NULL strings print
-`(null)` and NULL pointers print `0x0`. NULL string formatting is not guaranteed
-by the C standard, and pointer formatting is implementation-defined. Linux
-glibc commonly prints `(nil)` for NULL pointers, so that case needs adapting if
-the evaluation target changes to glibc.
+This implementation targets the Linux evaluation environment: NULL strings
+print `(null)` and NULL pointers print `(nil)`. NULL string formatting is not
+guaranteed by the C standard, and pointer formatting is implementation-defined.
 
 Use valid mandatory format strings and correctly typed arguments. As defensive
 behavior, a NULL format returns `-1`, an unsupported conversion returns `-1`,
