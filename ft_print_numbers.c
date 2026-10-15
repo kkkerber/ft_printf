@@ -28,23 +28,39 @@ int	ft_print_unsigned(unsigned int n)
 	return (count + 1);
 }
 
+static int	ft_print_long(long n)
+{
+	int	count;
+
+	count = 0;
+	if (n >= 10)
+	{
+		count = ft_print_long(n / 10);
+		if (count < 0)
+			return (-1);
+	}
+	if (ft_print_char('0' + n % 10) < 0)
+		return (-1);
+	return (count + 1);
+}
+
 int	ft_print_signed(int n)
 {
-	unsigned int	magnitude;
-	int				count;
+	long	nb;
+	int		count;
 
-	magnitude = (unsigned int)n;
-	if (n < 0)
+	nb = n;
+	if (nb < 0)
 	{
 		if (ft_print_char('-') < 0)
 			return (-1);
-		magnitude = 0U - magnitude;
-		count = ft_print_unsigned(magnitude);
+		nb = -nb;
+		count = ft_print_long(nb);
 		if (count < 0)
 			return (-1);
 		return (count + 1);
 	}
-	return (ft_print_unsigned(magnitude));
+	return (ft_print_long(nb));
 }
 
 int	ft_print_hex(unsigned long n, const char *digits)

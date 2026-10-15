@@ -51,10 +51,9 @@ from the `va_list` initialized by `va_start`; `va_end` always closes that list.
 
 The text helper writes one byte at a time and counts successful writes. Decimal
 conversion recursively prints the quotient before the remainder, placing digits
-in their natural order. Signed conversion prints a minus sign when needed and
-computes the magnitude with unsigned arithmetic. Unsigned subtraction is defined
-modulo the unsigned range, so this also handles `INT_MIN` without negating it as
-a signed integer.
+in their natural order. Signed integer conversion first copies the int value
+into a long. Negative values print a minus sign and are safely negated in long,
+which allows `INT_MIN` to be handled without signed int overflow.
 
 Hexadecimal conversion uses the same quotient/remainder approach with base 16
 and the appropriate lowercase or uppercase digit alphabet. Pointer conversion
